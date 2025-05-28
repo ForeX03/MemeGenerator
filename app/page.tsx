@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div className="flex flex-row bg-slate-700 w-full h-full">
         <div className="flex-grow flex flex-col items-center justify-center">
-            {imgSrc != "" ?
+            {!loading ?
                 <>
                     <img className="h-1/2" src={imgSrc} />
                     <a className="m-2 p-2 bg-slate-800 text-gray-200 rounded-md" href={imgSrc} download={"generated.png"}>Pobierz obraz</a>
