@@ -70,9 +70,9 @@ export default function Home() {
             }
         </div>
       <form method="POST" onSubmit={handleSubmit} className="flex flex-col w-96 bg-slate-800 p-5">
-        <input className="p-2 rounded-md bg-slate-900 text-gray-400 m-2" ref={textRef} type="text" placeholder="Tekst" name="text" required={true}  />
-        <input className="p-2 rounded-md bg-slate-900 text-gray-400 m-2" ref={fileRef} type="file" name="img" required={true} accept="image/png" />
-        <input className="p-2 rounded-md bg-slate-900 text-gray-200 m-2" type="submit" value="Create" />
+        <input disabled={loading} className="p-2 rounded-md bg-slate-900 text-gray-400 m-2" ref={textRef} type="text" placeholder="Tekst" name="text" required={true}  />
+        <input disabled={loading} className="p-2 rounded-md bg-slate-900 text-gray-400 m-2" ref={fileRef} type="file" name="img" required={true} accept="image/png" />
+        <input disabled={loading} className="p-2 rounded-md bg-slate-900 text-gray-200 m-2 pointer active:bg-slate-950" type="submit" value="Create" />
       </form>
     </div>
   );
