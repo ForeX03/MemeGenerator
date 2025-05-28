@@ -1,15 +1,17 @@
 "use client";
-import { FormEvent, useRef, useState } from "react";
+import {FormEvent, useEffect, useRef, useState} from "react";
 
 export default function Home() {
 
   const [ imgSrc, setImgSrc ] = useState("");
+  const [ loading, setLoading ] = useState(true);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
 
     if (!fileRef.current || fileRef.current.files == null) {
         return;
@@ -27,19 +29,31 @@ export default function Home() {
     reader.onloadend = async () => {
         const base64 = reader.result;
 
-        const res = await fetch("/api/generate", {
-            method: "POST",
-            body: JSON.stringify({text: text, img: base64}),
-            headers: { 'Content-Type': 'application/json' },
-        });
-
-        const blob = await res.blob();
-
-        setImgSrc(URL.createObjectURL(blob));
+        const imageSrc = await fetchImage(text, base64);
+        setImgSrc(imageSrc);
+        setLoading(false);
     }
 
     reader.readAsDataURL(file);
   }
+
+  const fetchImage = async (text: string, img: string | ArrayBuffer | null) => {
+      const res = await fetch("/api/generate", {
+          method: "POST",
+          body: JSON.stringify({text: text, img: img}),
+          headers: { 'Content-Type': 'application/json' },
+      });
+      const blob = await res.blob();
+
+      return URL.createObjectURL(blob);
+  }
+
+  useEffect(() => {
+      fetchImage("WASSUP", "/default.png").then(url => {
+          setImgSrc(url);
+          setLoading(false);
+      })
+  }, [])
 
   return (
     <div className="flex flex-row bg-slate-700 w-full h-full">
@@ -51,7 +65,7 @@ export default function Home() {
                 </>
                 :
                 <p>
-                  Nie stworzono jeszcze obrazu
+                  Ładowanie
                 </p>
             }
         </div>
