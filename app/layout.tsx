@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         { children }
         <div className="absolute z-50 text-gray-300 bottom-2 left-2 flex flex-row gap-2">
             <p>Created by ForeX03</p>
-            <a href="https://github.com/ForeX03/MemeGenerator"><FaGithub /> Kod źródłowy</a>
+            <a href="https://github.com/ForeX03/MemeGenerator"><FaGithub size={30} /></a>
         </div>
       </body>
     </html>
