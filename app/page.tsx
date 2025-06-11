@@ -49,7 +49,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-      fetchImage("WASSUP", "https://meme-generator-mu-ecru.vercel.app/default.png").then(url => {
+      fetchImage("WASSUP", "https://meme.codebay.fun/default.png").then(url => {
           setImgSrc(url);
           setLoading(false);
       })
